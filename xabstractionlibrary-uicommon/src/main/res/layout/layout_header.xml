@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xframework_uicommon.xview.xpullrefreshview.XCustomHeaderView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:text="My HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy HeaderMy Header"
+    android:gravity="center"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:layout_height="300dp">
+
+</com.xframework_uicommon.xview.xpullrefreshview.XCustomHeaderView>

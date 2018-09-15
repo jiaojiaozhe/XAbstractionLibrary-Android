@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">@color/c_1</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- 常用文字颜色 -->
+    <color name="c_1">#FFCD00</color>
+    <color name="c_2">#2D3240</color>
+    <color name="c_3">#333333</color>
+    <color name="c_4">#666666</color>
+    <color name="c_5">#999999</color>
+    <color name="c_6">#CACACA</color>
+    <color name="normal_bg">#F7F7F7</color>
+    <color name="other_2">#FFAC30</color>
+    <color name="other_3">#F58051</color>
+    <color name="other_4">#FF5B5F</color>
+
+    <!-- 自定义个颜色 -->
+    <color name="shadow_bg">#66000000</color>
+    <color name="view_bg">#ffffff</color>
+    <color name="select">#66dddddd</color>
+    <color name="pink_color">#ff3a71</color>
+    <color name="percent_70_pink_color">#B2ff3a71</color>
+    <color name="holo_red_dark">#ffcc0000</color>
+    <color name="holo_orange_dark">#ffff8800</color>
+    <color name="percent_black_60">#99000000</color>
+    <color name="line">#dedede</color>
+    <color name="c_1_press">#BEFFCD00</color>
+    <color name="image_bg">#E3E3E3</color>
+    <color name="disable_color">#EDEDED</color>
+</resources>

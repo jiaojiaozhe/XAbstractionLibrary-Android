@@ -1,0 +1,41 @@
+apply plugin: 'maven'
+uploadArchives{
+    configuration = configurations.archives
+    repositories {
+        mavenDeployer{
+            //配置发布到的仓库地址
+            snapshotRepository(url: MAVEN_REPO_SNAPSHOT_URL) {
+                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+            }
+            repository(url: MAVEN_REPO_RELEASE_URL) {
+                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+            }
+            //项目属性
+            pom.project {
+                //GROUPID+artifactId在maven中确定唯一位置
+                groupId GROUP_ID
+                //打包方式
+                packaging TYPE
+                //描述
+                description DESCRIPTION
+
+                //版本号由各个子项目进行独立配置
+                //后缀加-SNAPSHOT则为快照版本，去掉为release版本，会发布至不同仓库
+                version android.defaultConfig.versionName
+                //artifactId使用项目名
+                artifactId 'xabstractionlibrary-uicommon'
+            }
+        }
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.sourceFiles
+    }
+    artifacts {
+        archives androidSourcesJar
+    }
+}
+
+//执行此task，将此module进行发布
+task deploy(dependsOn: uploadArchives) {}
