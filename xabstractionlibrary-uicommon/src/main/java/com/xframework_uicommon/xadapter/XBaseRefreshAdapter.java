@@ -3,6 +3,7 @@ package com.xframework_uicommon.xadapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_uicommon.xview.XBaseRefreshFragment;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public abstract class XBaseRefreshAdapter<M> extends RecyclerView.Adapter<XBaseR
     /**
      * 数据同步锁
      */
-    private Serializable dataLock = new Serializable() {
+    private Serializable dataLock = new XBaseModel() {
     };
 
     /**

@@ -2,6 +2,7 @@ package com.framework.ui;
 
 import android.view.View;
 
+import com.framework.demo.DemoLocalRefreshFragment;
 import com.framework.ui.errorview.BaseErrorView;
 import com.framework.ui.loadingview.BaseLoadingView;
 import com.framework.ui.nodataview.BaseNoDataView;
@@ -12,6 +13,8 @@ import com.xframework_uicommon.xview.xloadingview.XIBaseLoadingViewDelegate;
 import com.xframework_uicommon.xview.xnodataview.XIBaseNoDataViewDelegate;
 import com.xframework_uicommon.xview.xnonetview.XIBaseNoNetViewDelegate;
 import com.zhht.xabstractionlibrary.R;
+
+import java.util.ArrayList;
 
 import cn.appsdream.nestrefresh.base.AbsRefreshLayout;
 
@@ -56,6 +59,37 @@ public abstract class BaseLocalRefreshFragment<M> extends XBaseRefreshFragment {
         return noDataView;
     }
 
+    protected void loadPage() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<M> dataSource = getFirstPageData();
+                BaseLocalRefreshFragment.this.getContext().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshControl(dataSource,false);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    protected void loadMore(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<M> dataSource = getNextPageData();
+
+                BaseLocalRefreshFragment.this.getContext().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadMoreControl(dataSource,false);
+                    }
+                });
+            }
+        }).start();
+    }
+
     @Override
     public AbsRefreshLayout.LoaderDecor refreshHeaderView() {
         return super.refreshHeaderView();
@@ -65,4 +99,8 @@ public abstract class BaseLocalRefreshFragment<M> extends XBaseRefreshFragment {
     public AbsRefreshLayout.LoaderDecor loadMoreView() {
         return super.loadMoreView();
     }
+
+    protected abstract ArrayList<M> getFirstPageData();
+
+    protected abstract ArrayList<M> getNextPageData();
 }

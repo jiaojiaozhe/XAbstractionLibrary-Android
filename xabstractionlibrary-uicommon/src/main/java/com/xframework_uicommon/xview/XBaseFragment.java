@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.xframework_base.xconfig.XConfig;
+import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_network.xhttp.XHttpRequest;
 import com.xframework_network.xhttp.XIBaseHttpRequestDelegate;
 import com.xframework_network.xhttp.XIBaseHttpResponseDelegate;
@@ -65,7 +66,7 @@ public abstract class XBaseFragment extends Fragment implements XIBaseHttpRespon
     /**
      * bIgnoreShowError的数据同步锁
      */
-    private Serializable ignoreShowErrorleLock = new Serializable() {
+    private Serializable ignoreShowErrorleLock = new XBaseModel() {
     };
 
     /**
@@ -76,7 +77,7 @@ public abstract class XBaseFragment extends Fragment implements XIBaseHttpRespon
     /**
      * bError数据同步锁
      */
-    private Serializable errorLock = new Serializable() {
+    private Serializable errorLock = new XBaseModel() {
     };
 
     /**
@@ -87,7 +88,7 @@ public abstract class XBaseFragment extends Fragment implements XIBaseHttpRespon
     /**
      * bNotNet数据同步锁
      */
-    private Serializable notNetLock = new Serializable() {
+    private Serializable notNetLock = new XBaseModel() {
     };
 
     /**
@@ -98,7 +99,7 @@ public abstract class XBaseFragment extends Fragment implements XIBaseHttpRespon
     /**
      * bNotData数据同步锁
      */
-    private Serializable notDataLock = new Serializable() {
+    private Serializable notDataLock = new XBaseModel() {
     };
 
     /**
@@ -109,13 +110,13 @@ public abstract class XBaseFragment extends Fragment implements XIBaseHttpRespon
     /**
      * 加载过程中的同步锁
      */
-    private Serializable loadingLock = new Serializable() {
+    private Serializable loadingLock = new XBaseModel() {
     };
 
     /**
      * UI刷新同步锁
      */
-    private Serializable refreshUILock = new Serializable() {
+    private Serializable refreshUILock = new XBaseModel() {
     };
 
     /**

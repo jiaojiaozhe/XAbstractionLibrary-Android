@@ -29,6 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Created by lanbiao on 2018/5/31
@@ -79,7 +80,7 @@ public abstract class XHttpRequestManager extends XBaseModel {
     /**
      * requestMaps数据源请求的原子锁对象
      */
-    private Serializable requestMapsLock = new Serializable() {
+    private Serializable requestMapsLock = new XBaseModel() {
     };
 
     /**
@@ -109,6 +110,7 @@ public abstract class XHttpRequestManager extends XBaseModel {
     private void init(){
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .addNetworkInterceptor(new HttpLoggingInterceptor())
                 .connectTimeout(connectTimeOut, TimeUnit.SECONDS)
                 .writeTimeout(writeTimeOut,TimeUnit.SECONDS)
                 .readTimeout(readTimeOut,TimeUnit.SECONDS)

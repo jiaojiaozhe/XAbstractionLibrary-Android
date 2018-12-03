@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 
 import com.xframework_base.xconfig.XConfig;
+import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_network.xhttp.XHttpRequest;
 import com.xframework_network.xhttp.XIBaseHttpRequestDelegate;
 import com.xframework_network.xhttp.XIBaseHttpResponseDelegate;
@@ -60,7 +61,7 @@ public abstract class XBaseActivity extends AppCompatActivity implements XIBaseH
     /**
      * 请求集合访问锁
      */
-    private Serializable requestLock = new Serializable() {
+    private Serializable requestLock = new XBaseModel() {
     };
 
     /**

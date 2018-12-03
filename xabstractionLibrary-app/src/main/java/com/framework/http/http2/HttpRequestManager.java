@@ -1,11 +1,6 @@
-package com.framework.http;
+package com.framework.http.http2;
 
-/**
- * created by lanbiao on 2018/5/31
- * http请求管理器单例对象
- */
 public class HttpRequestManager extends BaseHttpRequestManager {
-
     private static HttpRequestManager httpRequestManager = null;
 
     public static HttpRequestManager getInstance(){
@@ -21,8 +16,7 @@ public class HttpRequestManager extends BaseHttpRequestManager {
 
     protected HttpRequestManager(int connectTimeout, int readTimeout, int writeTimeout, long httpCacheMaxSize) {
         super(connectTimeout, readTimeout, writeTimeout, httpCacheMaxSize);
+        //http://sjz.app2.aipark.com/api/v1/park/queryByDistanceCountGplus
         httpHostAddress = "http://sjz.app2.aipark.com";
     }
-
-
 }

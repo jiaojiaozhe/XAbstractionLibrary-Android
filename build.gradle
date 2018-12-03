@@ -22,6 +22,14 @@ allprojects {
         maven {url MAVEN_REPO_SNAPSHOT_URL}
         maven { url MAVEN_REPO_RELEASE_URL }
     }
+
+    project.ext{
+        compileSDKVersion = 27
+        minSDKVersion = 14
+        targetSDKVersion = 27
+        versionSDKCode = 9
+        versionSDKName = "0.0.10-SNAPSHOT"
+    }
 }
 
 task clean(type: Delete) {

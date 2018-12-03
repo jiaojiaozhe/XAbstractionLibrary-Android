@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_uicommon.R;
 import com.xframework_uicommon.xadapter.XBaseRefreshAdapter;
 import com.xframework_uicommon.xview.xpullrefreshview.XNestRefreshLayout;
@@ -32,7 +33,7 @@ public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements O
     /**
      * 加载状态锁
      */
-    private Serializable refreshLock = new Serializable(){};
+    private Serializable refreshLock = new XBaseModel(){};
 
     /**
      * 滑动列表控件

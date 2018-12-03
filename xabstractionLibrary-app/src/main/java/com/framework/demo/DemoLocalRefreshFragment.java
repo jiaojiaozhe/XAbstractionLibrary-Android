@@ -45,55 +45,6 @@ public class DemoLocalRefreshFragment<M> extends BaseLocalRefreshFragment<M> {
         return listener;
     }
 
-    @Override
-    protected void loadPage() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final ArrayList<M> dataSource = new ArrayList<>();
-                for(int i = 1 ; i <= 30 ; i++){
-                    dataSource.add((M) (i + ""));
-                }
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }finally {
-                    DemoLocalRefreshFragment.this.getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshControl(dataSource,false);
-                        }
-                    });
-                }
-            }
-        }).start();
-    }
-
-    protected void loadMore(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final ArrayList<M> dataSource = new ArrayList<>();
-                for(int i = 1 ; i <= 30 ; i++){
-                    dataSource.add((M) (i + "新加的"));
-                }
-
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }finally {
-                    DemoLocalRefreshFragment.this.getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loadMoreControl(dataSource,false);
-                        }
-                    });
-                }
-            }
-        }).start();
-    }
 
     public class Demo_LocalRefresh_Fragment_Holder extends XBaseRefreshViewHolder<M>{
 
@@ -109,5 +60,23 @@ public class DemoLocalRefreshFragment<M> extends BaseLocalRefreshFragment<M> {
             if(data instanceof String)
                 test_nonet_list_item_id.setText(data.toString());
         }
+    }
+
+    @Override
+    protected ArrayList<M> getFirstPageData() {
+        final ArrayList<M> dataSource = new ArrayList<>();
+        for(int i = 1 ; i <= 30 ; i++){
+            dataSource.add((M) (i + ""));
+        }
+        return dataSource;
+    }
+
+    @Override
+    protected ArrayList<M> getNextPageData() {
+        final ArrayList<M> dataSource = new ArrayList<>();
+        for(int i = 1 ; i <= 30 ; i++){
+            dataSource.add((M) (i + "新加的"));
+        }
+        return dataSource;
     }
 }

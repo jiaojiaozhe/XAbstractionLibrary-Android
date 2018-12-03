@@ -18,7 +18,6 @@ public class XBaseJSON extends XBaseModel {
         super();
     }
 
-
     public  <T extends XBaseModel> T parseObject(String content, Class<T> clazz){
 
         T object = JSON.parseObject(content,clazz,XParserConfig.getInstance(),new Feature[0]);

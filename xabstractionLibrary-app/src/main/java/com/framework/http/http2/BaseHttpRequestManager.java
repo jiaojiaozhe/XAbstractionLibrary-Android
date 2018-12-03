@@ -1,30 +1,28 @@
-package com.framework.http;
+package com.framework.http.http2;
 
 import android.os.Build;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.framework.http.request.BaseRequest;
-import com.framework.model.result.BaseResult;
-import com.framework.model.result.HomeResult;
-import com.framework.parse.BaseHttpResponseCallBackBlock;
+import com.framework.model.BaseModel;
+import com.framework.model.result.TBaseResult;
 import com.framework.parse.BaseJSON;
 import com.framework.utils.SDCardUtils;
+import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_network.xhttp.XHttpRequest;
 import com.xframework_network.xhttp.XHttpRequestManager;
 import com.xframework_network.xhttp.XIBaseHttpRequestDelegate;
 import com.xframework_network.xhttp.XIBaseHttpResponseCallBackBlock;
 import com.xframework_network.xhttp.XIBaseHttpResponseDelegate;
+import com.zhht.xabstractionlibrary.DistanceCountGplusResultData;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by lanbiao on 2018/5/31
- * 项目的http基础请求管理器
- */
 public class BaseHttpRequestManager extends XHttpRequestManager {
 
     /**
@@ -63,7 +61,6 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
         params.put("device", Build.MODEL);
     }
 
-
     @Override
     public String getAppCachePath() {
         return SDCardUtils.SDCARD_PATH;
@@ -75,13 +72,13 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestParams 请求业务参数集合
      * @param responseDelegate 请求过程中状态回调代理
      * @param responseCallBackBlock 请求结果业务回调
-     * @param <Result> 要解析的数据类型
+     * @param <ResultData> 要解析的数据类型
      * @return 返回请求对象
      */
-    private <Result extends BaseResult> String processStartRequestLogic(Map<String,String> requestHeaders,
-                                                                   Map<String,Object> requestParams,
-                                                                   XIBaseHttpResponseDelegate responseDelegate,
-                                                                   final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    private <ResultData extends BaseModel> String processStartRequestLogic(Map<String,String> requestHeaders,
+                                                                       Map<String,Object> requestParams,
+                                                                       XIBaseHttpResponseDelegate responseDelegate,
+                                                                       final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         if(requestHeaders == null){
             requestHeaders = new HashMap<>();
         }
@@ -98,7 +95,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
         if(TextUtils.isEmpty(requestUrl)){
             //缺失command
             if(responseCallBackBlock != null){
-                responseCallBackBlock.callBack(null,(Result)BaseResult.loseParamError(),true);
+                responseCallBackBlock.callBack(null,(TBaseResult<ResultData>) TBaseResult.loseParamError(),true);
             }
 
             if(responseDelegate != null){
@@ -118,20 +115,20 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
         }
     }
 
-    private  <Result> Class<Result> getTClass(Object obj) {
+    private <ResultData> Class<ResultData> getTClass(Object obj) {
         Type[] types = obj.getClass().getGenericInterfaces();
         Type[] actualTypeArguments = ((ParameterizedType) types[0]).getActualTypeArguments();
-        Class<Result> tClass = (Class<Result>) (actualTypeArguments[0]);
+        Class<ResultData> tClass = (Class<ResultData>) (actualTypeArguments[0]);
         return tClass;
     }
 
-    private <Result extends BaseResult> Result getObject(final Integer errorCode,
+    private <ResultData extends BaseModel> TBaseResult<ResultData> getObject(final Integer errorCode,
                                                          final String serverMsg,
-                                                         final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
-        Class<Result> cls = null;
+                                                         final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
+        Class<ResultData> cls = null;
         if(responseCallBackBlock instanceof BaseHttpResponseCallBackBlock){
             BaseHttpResponseCallBackBlock callBackBlock = (BaseHttpResponseCallBackBlock)responseCallBackBlock;
-            cls = callBackBlock.getClazz();
+            //cls = callBackBlock.getClazz();
         }else {
             cls = getTClass(responseCallBackBlock);
         }
@@ -139,8 +136,8 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
         Object object = null;
         try {
             object = cls.newInstance();
-            if(object instanceof BaseResult){
-                BaseResult baseResult = (BaseResult)object;
+            if(object instanceof TBaseResult){
+                TBaseResult baseResult = (TBaseResult)object;
                 baseResult.setErrorCode(errorCode);
                 baseResult.setServerMsg(serverMsg);
             }
@@ -149,7 +146,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }finally {
-            return (Result) object;
+            return (TBaseResult<ResultData>) object;
         }
     }
 
@@ -159,37 +156,37 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param response 请求原始结果
      * @param bError 是否存在错误
      * @param responseCallBackBlock 请求结果业务回调
-     * @param <Result> 需要解析成的数据模型
+     * @param <ResultData> 需要解析成的数据模型
      */
-    private <Result extends BaseResult> void processRequestResultLogic(XIBaseHttpRequestDelegate request,
-                                                                  Object response,
-                                                                  boolean bError,
-                                                                  final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    private <ResultData extends BaseModel> void processRequestResultLogic(XIBaseHttpRequestDelegate request,
+                                                                       Object response,
+                                                                       boolean bError,
+                                                                       final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         if(bError){
             if(responseCallBackBlock != null){
-                Result result = getObject(10002,"请求发生错误",responseCallBackBlock);
+                TBaseResult<ResultData> result = getObject(10002,"请求发生错误",responseCallBackBlock);
                 responseCallBackBlock.callBack(request,result,response);
             }
         }else {
             String deencryContentParams = null;
             if(response != null){
                 if(response instanceof String){
-                    Result responseObj = null;
+                    TBaseResult<ResultData> responseObj = null;
                     try {
                         //deencryContentParams = AESUtil.decryptAES(response.toString(),AESUtil.AES_KEY);
-                        Class<Result> cls = null;
+                        Class<ResultData> cls = null;
                         if(responseCallBackBlock instanceof BaseHttpResponseCallBackBlock){
                             BaseHttpResponseCallBackBlock callBackBlock = (BaseHttpResponseCallBackBlock)responseCallBackBlock;
-                            cls = callBackBlock.getClazz();
+                            //cls = callBackBlock.getClazz();
+                            responseObj = (TBaseResult) BaseJSON.getBaseInstence().parseObject(response.toString(),((BaseHttpResponseCallBackBlock) responseCallBackBlock).getTypeClass());
                         }else {
-                            cls = getTClass(responseCallBackBlock);
+                            //cls = getTClass(responseCallBackBlock);
+                            responseObj = BaseJSON.getBaseInstence().parseObject(response.toString(),new TypeReference<TBaseResult<ResultData>>(){});
                         }
-
-                        responseObj = BaseJSON.getBaseInstence().parseObject(response.toString(),cls);
                     }catch (Exception e) {
                         e.printStackTrace();
                         if(responseCallBackBlock != null) {
-                            Result result = getObject(10001,"请求成功,解析异常",responseCallBackBlock);
+                            TBaseResult<ResultData> result = getObject(10001,"请求成功,解析异常",responseCallBackBlock);
                             responseCallBackBlock.callBack(request, result, response);
                         }
                     }finally {
@@ -201,7 +198,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
                 }
             }else {
                 if(responseCallBackBlock != null){
-                    Result result = getObject(0,"请求成功",responseCallBackBlock);
+                    TBaseResult<ResultData> result = getObject(0,"请求成功",responseCallBackBlock);
                     responseCallBackBlock.callBack(request,result,response);
                 }
             }
@@ -213,12 +210,12 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestParams 请求参数集合
      * @param responseDelegate 请求过程中的状态回调代理
      * @param responseCallBackBlock 请求结果业务回调
-     * @param <Result> 要解析的数据模型
+     * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,Object> requestParams,
-                                                                       XIBaseHttpResponseDelegate responseDelegate,
-                                                                       IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate getRequest(Map<String,Object> requestParams,
+                                                                            XIBaseHttpResponseDelegate responseDelegate,
+                                                                            IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         return getRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
     }
 
@@ -228,13 +225,13 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestParams 请求参数集合
      * @param responseDelegate 请求过程中状态回调代理
      * @param responseCallBackBlock 请求结果业务回调
-     * @param <Result> 要解析的数据模型
+     * @param <ResultData> 要解析的数据模型
      * @return 返回请求的对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestHeaders,
-                                                                       Map<String,Object> requestParams,
-                                                                       XIBaseHttpResponseDelegate responseDelegate,
-                                                                       final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestHeaders,
+                                                                            Map<String,Object> requestParams,
+                                                                            XIBaseHttpResponseDelegate responseDelegate,
+                                                                            final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         String requestUrl = processStartRequestLogic(requestHeaders,requestParams,responseDelegate,responseCallBackBlock);
         if(TextUtils.isEmpty(requestUrl)){
             return null;
@@ -264,12 +261,12 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestModel 请求参数集合
      * @param responseDelegate  请求过程中的状态回调代理
      * @param responseCallBackBlock  请求结果业务回调
-     * @param <Result> 要解析的数据模型
+     * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate getRequest(BaseRequest requestModel,
-                                                                             XIBaseHttpResponseDelegate responseDelegate,
-                                                                             final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate getRequest(BaseRequest requestModel,
+                                                                            XIBaseHttpResponseDelegate responseDelegate,
+                                                                            final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         if(requestModel == null){
             return null;
         }
@@ -282,12 +279,12 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestParams 请求参数集合
      * @param responseDelegate 请求过程中的状态回调
      * @param responseCallBackBlock 请求结果回调
-     * @param <Result> 要解析的数据模型
+     * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,Object> requestParams,
-                                                                         XIBaseHttpResponseDelegate responseDelegate,
-                                                                         IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate postRequest(Map<String,Object> requestParams,
+                                                                             XIBaseHttpResponseDelegate responseDelegate,
+                                                                             IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         return postRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
     }
 
@@ -297,13 +294,13 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestParams 请求参数信息
      * @param responseDelegate 请求过程中的状态回调代理
      * @param responseCallBackBlock 请求结果业务回调
-     * @param <Result> 要解析的数据模型
+     * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestHeaders,
-                                                                        Map<String,Object> requestParams,
-                                                                        XIBaseHttpResponseDelegate responseDelegate,
-                                                                        final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestHeaders,
+                                                                             Map<String,Object> requestParams,
+                                                                             XIBaseHttpResponseDelegate responseDelegate,
+                                                                             final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         String requestUrl = processStartRequestLogic(requestHeaders,requestParams,responseDelegate,responseCallBackBlock);
         if(TextUtils.isEmpty(requestUrl)){
             return null;
@@ -333,12 +330,12 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param requestModel 请求参数集合
      * @param responseDelegate  请求过程中的状态回调代理
      * @param responseCallBackBlock  请求结果业务回调
-     * @param <Result> 要解析的数据模型
+     * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate postRequest(BaseRequest requestModel,
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate postRequest(BaseRequest requestModel,
                                                                              XIBaseHttpResponseDelegate responseDelegate,
-                                                                             final IBaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
+                                                                             final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         if(requestModel == null){
             return null;
         }
