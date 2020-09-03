@@ -2,7 +2,6 @@ package com.xframework_uicommon.xview.xpullrefreshview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import cn.appsdream.nestrefresh.normalstyle.NestRefreshLayout;
 
@@ -11,7 +10,7 @@ import cn.appsdream.nestrefresh.normalstyle.NestRefreshLayout;
  * Created by lanbiao on 2018/06/15
  * 滑动列表自定义头部
  */
-public class XCustomHeaderView extends android.support.v7.widget.AppCompatTextView implements NestRefreshLayout.LoaderDecor {
+public class XCustomHeaderView extends androidx.appcompat.widget.AppCompatTextView implements NestRefreshLayout.LoaderDecor {
     public XCustomHeaderView(Context context) {
         super(context);
     }

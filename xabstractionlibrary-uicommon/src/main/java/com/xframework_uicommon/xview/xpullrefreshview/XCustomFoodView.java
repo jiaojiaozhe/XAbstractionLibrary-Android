@@ -10,7 +10,7 @@ import cn.appsdream.nestrefresh.normalstyle.NestRefreshLayout;
  * Created by lanbiao on 2018/06/15
  * 自定义滑动加载更多
  */
-public class XCustomFoodView extends android.support.v7.widget.AppCompatTextView implements NestRefreshLayout.LoaderDecor {
+public class XCustomFoodView extends androidx.appcompat.widget.AppCompatTextView implements NestRefreshLayout.LoaderDecor {
     public XCustomFoodView(Context context) {
         super(context);
     }

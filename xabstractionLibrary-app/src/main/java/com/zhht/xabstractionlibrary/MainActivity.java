@@ -1,16 +1,7 @@
 package com.zhht.xabstractionlibrary;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.alibaba.fastjson.TypeReference;
-import com.framework.http.HttpRequestManager;
-import com.framework.http.IBaseHttpResponseCallBackBlock;
-import com.framework.http.request.TBaseRequest;
-import com.framework.model.result.BaseResult;
-import com.framework.model.result.TBaseResult;
-import com.framework.parse.BaseHttpResponseCallBackBlock;
-import com.xframework_network.xhttp.XIBaseHttpRequestDelegate;
 
 //import com.alibaba.fastjson.JSON;
 //import com.alibaba.fastjson.TypeReference;

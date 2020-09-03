@@ -1,7 +1,6 @@
 package com.xframework_uicommon.xadapter;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_uicommon.xview.XBaseRefreshFragment;
