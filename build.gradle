@@ -21,6 +21,7 @@ allprojects {
         jcenter()
         maven {url MAVEN_REPO_SNAPSHOT_URL}
         maven { url MAVEN_REPO_RELEASE_URL }
+        maven { url MAVEN_PEPO_CENTER_URL }
     }
 
     project.ext{
