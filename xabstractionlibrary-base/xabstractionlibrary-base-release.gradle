@@ -8,10 +8,10 @@ uploadArchives{
             }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_REPO){
                 print(DEPEND_TYPE_LOCAL_REPO);
                 if(project.ext.deployDepend == DEPLOY_DEPEND_SNAPSHOT){
-                    snapshotRepository(url: uri(LOCAL_REPO_SNAPSHOT_URL)) {
+                    snapshotRepository(url: uri("${project.rootDir}/${LOCAL_REPO_SNAPSHOT_URL}")) {
                     }
                 }else if(project.ext.deployDepend == DEPLOY_DEPEND_RELEASE){
-                    repository(url: uri(LOCAL_REPO_RELEASE_URL)) {
+                    repository(url: uri("${project.rootDir}/${LOCAL_REPO_RELEASE_URL}")) {
                     }
                 }
             }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_ROUTE){

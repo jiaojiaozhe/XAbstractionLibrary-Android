@@ -4,8 +4,8 @@
   <artifactId>xabstractionlibrary-parse</artifactId>
   <versioning>
     <versions>
-      <version>0.0.15-SNAPSHOT</version>
+      <version>0.0.16-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20200904022123</lastUpdated>
+    <lastUpdated>20200904092829</lastUpdated>
   </versioning>
 </metadata>

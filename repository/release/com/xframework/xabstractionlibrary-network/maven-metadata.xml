@@ -3,10 +3,10 @@
   <groupId>com.xframework</groupId>
   <artifactId>xabstractionlibrary-network</artifactId>
   <versioning>
-    <release>0.0.15-RELEASE</release>
+    <release>0.0.16-RELEASE</release>
     <versions>
-      <version>0.0.15-RELEASE</version>
+      <version>0.0.16-RELEASE</version>
     </versions>
-    <lastUpdated>20200904025642</lastUpdated>
+    <lastUpdated>20200904093058</lastUpdated>
   </versioning>
 </metadata>

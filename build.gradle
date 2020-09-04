@@ -17,16 +17,15 @@ buildscript {
 
 allprojects {
     repositories {
-
         if(DEPEND_TYPE == DEPEND_TYPE_LOCAL_NONE) {
             //本地的依赖
         }else if(DEPEND_TYPE == DEPEND_TYPE_LOCAL_REPO){
             if(DEPLOY_DEPEND == DEPLOY_DEPEND_SNAPSHOT){
-                maven { url LOCAL_REPO_SNAPSHOT_URL }
+                maven { url "${project.rootDir}/${LOCAL_REPO_SNAPSHOT_URL}"}
             }else if(DEPLOY_DEPEND == DEPLOY_DEPEND_RELEASE){
-                maven { url LOCAL_REPO_RELEASE_URL }
+                maven { url "${project.rootDir}/${LOCAL_REPO_RELEASE_URL}"}
             }else {
-                maven { url LOCAL_REPO_SNAPSHOT_URL }
+                maven { url "${project.rootDir}/${LOCAL_REPO_SNAPSHOT_URL}"}
             }
         }else if(DEPEND_TYPE == DEPEND_TYPE_LOCAL_ROUTE){
             if(DEPLOY_DEPEND == DEPLOY_DEPEND_SNAPSHOT){
