@@ -113,7 +113,7 @@ public abstract class BaseNetRefreshFragment<M,Result extends BaseNetRefreshResu
     @Override
     protected void loadPage() {
         Class<Result> tClass =  getParseClass();
-        HashMap<String,Object> requestParams = new HashMap<>();
+        HashMap<String,String> requestParams = new HashMap<>();
         refreshRequestParams(requestParams);
 
         postRequest(requestParams, this, new BaseHttpResponseCallBackBlock <Result>(tClass) {
@@ -146,7 +146,7 @@ public abstract class BaseNetRefreshFragment<M,Result extends BaseNetRefreshResu
     @Override
     protected void loadMore() {
         Class<Result> tClass =  getParseClass();
-        HashMap<String,Object> requestParams = new HashMap<>();
+        HashMap<String,String> requestParams = new HashMap<>();
         loadMoreRequestParams(requestParams);
         postRequest(requestParams, this, new BaseHttpResponseCallBackBlock<Result>(tClass){
             @Override
@@ -183,7 +183,7 @@ public abstract class BaseNetRefreshFragment<M,Result extends BaseNetRefreshResu
      * @param <Result> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,Object> requestParams,
+    public <Result extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestParams,
                                                                         XIBaseHttpResponseDelegate responseDelegate,
                                                                         BaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
         return postRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
@@ -199,7 +199,7 @@ public abstract class BaseNetRefreshFragment<M,Result extends BaseNetRefreshResu
      * @return 返回请求对象
      */
     protected <Result extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestHeaders,
-                                                                           Map<String,Object> requestParams,
+                                                                           Map<String,String> requestParams,
                                                                            XIBaseHttpResponseDelegate responseDelegate,
                                                                            final BaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
         return HttpRequestManager.getInstance().postRequest(requestHeaders, requestParams, responseDelegate, new BaseHttpResponseCallBackBlock<Result>(responseCallBackBlock.getClazz()) {
@@ -241,7 +241,7 @@ public abstract class BaseNetRefreshFragment<M,Result extends BaseNetRefreshResu
      * @param <Result> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <Result extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,Object> requestParams,
+    public <Result extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestParams,
                                                                        XIBaseHttpResponseDelegate responseDelegate,
                                                                        BaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
         return getRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
@@ -257,7 +257,7 @@ public abstract class BaseNetRefreshFragment<M,Result extends BaseNetRefreshResu
      * @return 返回请求的对象
      */
     public <Result extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestHeaders,
-                                                                       Map<String,Object> requestParams,
+                                                                       Map<String,String> requestParams,
                                                                        XIBaseHttpResponseDelegate responseDelegate,
                                                                        final BaseHttpResponseCallBackBlock<Result> responseCallBackBlock){
         return HttpRequestManager.getInstance().getRequest(requestHeaders, requestParams, responseDelegate, new BaseHttpResponseCallBackBlock<Result>(responseCallBackBlock.getClazz()) {

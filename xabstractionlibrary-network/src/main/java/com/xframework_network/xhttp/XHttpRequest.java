@@ -48,7 +48,7 @@ public class XHttpRequest extends XBaseModel implements XIBaseHttpRequestDelegat
     }
 
 
-    public XHttpRequest(Call request,XIBaseHttpResponseDelegate newDelegate,XIBaseHttpResponseCallBackBlock newCallBaclBlock){
+    public XHttpRequest(Call request, XIBaseHttpResponseDelegate newDelegate, XIBaseHttpResponseCallBackBlock newCallBaclBlock){
         this();
         this.request = request;
         if(newDelegate != null){

@@ -4,8 +4,9 @@ import android.Manifest;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import androidx.core.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+
+import androidx.core.app.ActivityCompat;
 
 import com.xframework_base.XBaseApp;
 

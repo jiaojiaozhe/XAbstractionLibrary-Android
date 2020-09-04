@@ -33,18 +33,19 @@ public class XParserConfig extends ParserConfig {
     // 配置自定义解析器支持的解析类型，包括基础数据类型以及模型类型
     private void loadJSONDeserializer(){
         putDeserializer(int.class, XBaseIntDeserializer.getInstance());
-        putDeserializer(Integer.class,XBaseIntDeserializer.getInstance());
+        putDeserializer(Integer.class, XBaseIntDeserializer.getInstance());
         putDeserializer(float.class, XBaseFloatDeserializer.getInstance());
-        putDeserializer(Float.class,XBaseFloatDeserializer.getInstance());
+        putDeserializer(Float.class, XBaseFloatDeserializer.getInstance());
         putDeserializer(double.class, XBaseDoubleDeserializer.getInstance());
-        putDeserializer(Double.class,XBaseDoubleDeserializer.getInstance());
+        putDeserializer(Double.class, XBaseDoubleDeserializer.getInstance());
         putDeserializer(long.class, XBaseLongDeserializer.getInstance());
-        putDeserializer(Long.class,XBaseLongDeserializer.getInstance());
+        putDeserializer(Long.class, XBaseLongDeserializer.getInstance());
         putDeserializer(Boolean.class, XBaseBooleanDeserializer.getInstance());
-        putDeserializer(boolean.class,XBaseBooleanDeserializer.getInstance());
+        putDeserializer(boolean.class, XBaseBooleanDeserializer.getInstance());
         putDeserializer(String.class, XStringDeserializer.getInstance());
-        putDeserializer(StringBuilder.class,XStringDeserializer.getInstance());
-        putDeserializer(StringBuffer.class,XStringDeserializer.getInstance());
+        putDeserializer(StringBuilder.class, XStringDeserializer.getInstance());
+        putDeserializer(StringBuffer.class, XStringDeserializer.getInstance());
+        //putDeserializer(Object.class,new JavaBeanDeserializer(this,Object.class));
     }
 
     public static XParserConfig getInstance(){

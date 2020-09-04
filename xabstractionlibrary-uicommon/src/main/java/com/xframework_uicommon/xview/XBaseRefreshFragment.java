@@ -1,10 +1,11 @@
 package com.xframework_uicommon.xview;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_uicommon.R;
@@ -23,7 +24,7 @@ import cn.appsdream.nestrefresh.normalstyle.NestRefreshLayout;
  * 下拉滑动滚动相关抽象fragment，基于RecyclerView
  * @param <M> itemView对应的数据模型
  */
-public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements OnPullListener{
+public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements OnPullListener {
 
     /**
      * 正在加载状态中
@@ -56,7 +57,7 @@ public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements O
      * @param viewType 视图类型
      * @return 返回对应的holder
      */
-    public abstract XBaseRefreshViewHolder<M> createViewHolder(ViewGroup parent,int viewType);
+    public abstract XBaseRefreshViewHolder<M> createViewHolder(ViewGroup parent, int viewType);
 
     /**
      * 获取refresh事件的监听者对象
@@ -69,7 +70,7 @@ public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements O
      * @return 返回指定协议的view
      */
     public NestRefreshLayout.LoaderDecor refreshHeaderView(){
-        return (NestRefreshLayout.LoaderDecor)View.inflate(getContext(), R.layout.layout_header,null);
+        return (NestRefreshLayout.LoaderDecor) View.inflate(getContext(), R.layout.layout_header,null);
     }
 
     /**
@@ -77,7 +78,7 @@ public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements O
      * @return 返回指定协议的view
      */
     public NestRefreshLayout.LoaderDecor loadMoreView(){
-        return (NestRefreshLayout.LoaderDecor)View.inflate(getContext(),R.layout.layout_footer,null);
+        return (NestRefreshLayout.LoaderDecor) View.inflate(getContext(), R.layout.layout_footer,null);
     }
 
     public XBaseRefreshFragment(){
@@ -271,7 +272,7 @@ public abstract class XBaseRefreshFragment<M> extends XBaseFragment implements O
      * @param dataList 刷新到的数据
      * @param bError 是否存在错误
      */
-    public void loadMoreControl(List<M> dataList,Boolean bError){
+    public void loadMoreControl(List<M> dataList, Boolean bError){
         if(!bError){
             if(dataList != null && dataList.size() > 0){
                 mRefreshLayout.onLoadFinished();

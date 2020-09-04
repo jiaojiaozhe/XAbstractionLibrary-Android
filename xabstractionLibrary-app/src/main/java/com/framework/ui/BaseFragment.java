@@ -72,7 +72,7 @@ public abstract class BaseFragment extends XBaseFragment{
      * @param <T> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <T extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,Object> requestParams,
+    public <T extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestParams,
                                                                         XIBaseHttpResponseDelegate responseDelegate,
                                                                         BaseHttpResponseCallBackBlock<T> responseCallBackBlock){
         return postRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
@@ -88,7 +88,7 @@ public abstract class BaseFragment extends XBaseFragment{
      * @return 返回请求对象
      */
     protected <T extends BaseResult> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestHeaders,
-                                                                    Map<String,Object> requestParams,
+                                                                    Map<String,String> requestParams,
                                                                     XIBaseHttpResponseDelegate responseDelegate,
                                                                     final BaseHttpResponseCallBackBlock<T> responseCallBackBlock){
         return HttpRequestManager.getInstance().postRequest(requestHeaders, requestParams, responseDelegate, new BaseHttpResponseCallBackBlock<T>(responseCallBackBlock.getClazz()) {
@@ -131,7 +131,7 @@ public abstract class BaseFragment extends XBaseFragment{
      * @param <T> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <T extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,Object> requestParams,
+    public <T extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestParams,
                                                                        XIBaseHttpResponseDelegate responseDelegate,
                                                                        BaseHttpResponseCallBackBlock<T> responseCallBackBlock){
         return getRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
@@ -147,7 +147,7 @@ public abstract class BaseFragment extends XBaseFragment{
      * @return 返回请求的对象
      */
     public <T extends BaseResult> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestHeaders,
-                                                                       Map<String,Object> requestParams,
+                                                                       Map<String,String> requestParams,
                                                                        XIBaseHttpResponseDelegate responseDelegate,
                                                                        final BaseHttpResponseCallBackBlock<T> responseCallBackBlock){
         return HttpRequestManager.getInstance().getRequest(requestHeaders, requestParams, responseDelegate, new BaseHttpResponseCallBackBlock<T>(responseCallBackBlock.getClazz()) {

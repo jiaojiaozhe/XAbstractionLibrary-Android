@@ -63,7 +63,7 @@ public class XUUID {
      */
     private void initDeviceId(){
         if(preferences == null){
-            preferences = mContext.getSharedPreferences(DEFAULT_NAME,Context.MODE_PRIVATE);
+            preferences = mContext.getSharedPreferences(DEFAULT_NAME, Context.MODE_PRIVATE);
         }
 
         String deviceId = preferences.getString(DEFAULT_DEVICE_ID,null);

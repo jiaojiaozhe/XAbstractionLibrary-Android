@@ -26,7 +26,7 @@ public class DemoFragment extends BaseFragment {
 
     @Override
     protected void loadPage() {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, String> params = new HashMap<String, String>();
         Map<String, Object> userMap = new HashMap<String, Object>();
         userMap.put("cityId", "1");
         Map<String, Object> map = new HashMap<String, Object>();

@@ -6,14 +6,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.appcompat.app.AppCompatActivity;
-import android.widget.RelativeLayout;
 
 import com.xframework_base.xconfig.XConfig;
 import com.xframework_base.xmodel.XBaseModel;
@@ -56,7 +57,7 @@ public abstract class XBaseActivity extends AppCompatActivity implements XIBaseH
     /**
      * 请求request集合
      */
-    private Map<String,XIBaseHttpRequestDelegate> requests = new HashMap<>();
+    private Map<String, XIBaseHttpRequestDelegate> requests = new HashMap<>();
 
     /**
      * 请求集合访问锁
@@ -139,11 +140,16 @@ public abstract class XBaseActivity extends AppCompatActivity implements XIBaseH
         mThemeFragment = loadThemeFragment();
         mContentFragemnt = loadContentFragment();
 
-        if(mContentFragemnt != null){
+        if(mThemeFragment != null){
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.xnavigation_title_id,mThemeFragment,"");
-            fragmentTransaction.add(R.id.xcontent_view,mContentFragemnt,"");
             fragmentTransaction.show(mThemeFragment);
+            fragmentTransaction.commitAllowingStateLoss();
+        }
+
+        if(mContentFragemnt != null){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.xcontent_view,mContentFragemnt,"");
             fragmentTransaction.show(mContentFragemnt);
             fragmentTransaction.commitAllowingStateLoss();
         }

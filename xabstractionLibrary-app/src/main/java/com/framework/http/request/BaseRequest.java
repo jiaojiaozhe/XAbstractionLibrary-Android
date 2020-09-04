@@ -46,7 +46,7 @@ public class BaseRequest extends BaseModel {
         this.requestHeader = requestHeader;
     }
 
-    private void getParams(Class cls,HashMap<String,Object> params){
+    private void getParams(Class cls,HashMap<String,String> params){
         if(cls == null || cls.equals(Object.class) || cls.equals(BaseModel.class)){
             return;
         }
@@ -60,7 +60,7 @@ public class BaseRequest extends BaseModel {
             if(!name.equalsIgnoreCase("requestHeader")) {
                 try {
                     Object value = field.get(this);
-                    params.put(name, value);
+                    params.put(name, (String) value);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -68,8 +68,8 @@ public class BaseRequest extends BaseModel {
         }
     }
 
-    public HashMap<String,Object> getRequestParams(){
-        HashMap<String,Object> requestParams = new HashMap<>();
+    public HashMap<String,String> getRequestParams(){
+        HashMap<String,String> requestParams = new HashMap<>();
         getParams(getClass(),requestParams);
         return requestParams;
     }

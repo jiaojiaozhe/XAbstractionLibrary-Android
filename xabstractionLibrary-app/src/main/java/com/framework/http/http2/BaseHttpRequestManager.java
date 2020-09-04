@@ -74,7 +74,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @return 返回请求对象
      */
     private <ResultData extends BaseModel> String processStartRequestLogic(Map<String,String> requestHeaders,
-                                                                       Map<String,Object> requestParams,
+                                                                       Map<String,String> requestParams,
                                                                        XIBaseHttpResponseDelegate responseDelegate,
                                                                        final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         if(requestHeaders == null){
@@ -211,7 +211,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate getRequest(Map<String,Object> requestParams,
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestParams,
                                                                             XIBaseHttpResponseDelegate responseDelegate,
                                                                             IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         return getRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
@@ -227,7 +227,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @return 返回请求的对象
      */
     public <ResultData extends BaseModel> XIBaseHttpRequestDelegate getRequest(Map<String,String> requestHeaders,
-                                                                            Map<String,Object> requestParams,
+                                                                            Map<String,String> requestParams,
                                                                             XIBaseHttpResponseDelegate responseDelegate,
                                                                             final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         String requestUrl = processStartRequestLogic(requestHeaders,requestParams,responseDelegate,responseCallBackBlock);
@@ -280,7 +280,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @param <ResultData> 要解析的数据模型
      * @return 返回请求对象
      */
-    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate postRequest(Map<String,Object> requestParams,
+    public <ResultData extends BaseModel> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestParams,
                                                                              XIBaseHttpResponseDelegate responseDelegate,
                                                                              IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         return postRequest((Map<String, String>) null,requestParams,responseDelegate,responseCallBackBlock);
@@ -296,7 +296,7 @@ public class BaseHttpRequestManager extends XHttpRequestManager {
      * @return 返回请求对象
      */
     public <ResultData extends BaseModel> XIBaseHttpRequestDelegate postRequest(Map<String,String> requestHeaders,
-                                                                             Map<String,Object> requestParams,
+                                                                             Map<String,String> requestParams,
                                                                              XIBaseHttpResponseDelegate responseDelegate,
                                                                              final IBaseHttpResponseCallBackBlock<ResultData> responseCallBackBlock){
         String requestUrl = processStartRequestLogic(requestHeaders,requestParams,responseDelegate,responseCallBackBlock);
