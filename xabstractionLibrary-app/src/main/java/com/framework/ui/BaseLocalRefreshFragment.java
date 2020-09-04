@@ -2,7 +2,6 @@ package com.framework.ui;
 
 import android.view.View;
 
-import com.framework.demo.DemoLocalRefreshFragment;
 import com.framework.ui.errorview.BaseErrorView;
 import com.framework.ui.loadingview.BaseLoadingView;
 import com.framework.ui.nodataview.BaseNoDataView;
@@ -12,7 +11,7 @@ import com.xframework_uicommon.xview.xerrorview.XIBaseErrorViewDelegate;
 import com.xframework_uicommon.xview.xloadingview.XIBaseLoadingViewDelegate;
 import com.xframework_uicommon.xview.xnodataview.XIBaseNoDataViewDelegate;
 import com.xframework_uicommon.xview.xnonetview.XIBaseNoNetViewDelegate;
-import com.zhht.xabstractionlibrary.R;
+import com.personal.xabstractionlibrary.R;
 
 import java.util.ArrayList;
 

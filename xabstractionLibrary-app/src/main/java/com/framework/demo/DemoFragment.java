@@ -8,7 +8,7 @@ import com.framework.model.result.HomeResult;
 import com.framework.parse.BaseHttpResponseCallBackBlock;
 import com.framework.ui.BaseFragment;
 import com.xframework_network.xhttp.XIBaseHttpRequestDelegate;
-import com.zhht.xabstractionlibrary.R;
+import com.personal.xabstractionlibrary.R;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xframework_uicommon.xview.xloadingview.XIBaseLoadingViewDelegate;
-import com.zhht.xabstractionlibrary.R;
+import com.personal.xabstractionlibrary.R;
 
 public class BaseLoadingView extends RelativeLayout implements XIBaseLoadingViewDelegate {
 

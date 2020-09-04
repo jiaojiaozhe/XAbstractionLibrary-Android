@@ -10,13 +10,11 @@ import com.framework.model.BaseModel;
 import com.framework.model.result.TBaseResult;
 import com.framework.parse.BaseJSON;
 import com.framework.utils.SDCardUtils;
-import com.xframework_base.xmodel.XBaseModel;
 import com.xframework_network.xhttp.XHttpRequest;
 import com.xframework_network.xhttp.XHttpRequestManager;
 import com.xframework_network.xhttp.XIBaseHttpRequestDelegate;
 import com.xframework_network.xhttp.XIBaseHttpResponseCallBackBlock;
 import com.xframework_network.xhttp.XIBaseHttpResponseDelegate;
-import com.zhht.xabstractionlibrary.DistanceCountGplusResultData;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

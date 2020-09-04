@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.xframework_uicommon.xview.xnonetview.XIBaseNoNetRetryDelegate;
 import com.xframework_uicommon.xview.xnonetview.XIBaseNoNetViewDelegate;
-import com.zhht.xabstractionlibrary.R;
+import com.personal.xabstractionlibrary.R;
 
 import java.lang.ref.WeakReference;
 

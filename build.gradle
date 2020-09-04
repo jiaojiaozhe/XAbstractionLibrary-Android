@@ -17,19 +17,46 @@ buildscript {
 
 allprojects {
     repositories {
+
+        if(DEPEND_TYPE == DEPEND_TYPE_LOCAL_NONE) {
+            //本地的依赖
+        }else if(DEPEND_TYPE == DEPEND_TYPE_LOCAL_REPO){
+            if(DEPLOY_DEPEND == DEPLOY_DEPEND_SNAPSHOT){
+                maven { url LOCAL_REPO_SNAPSHOT_URL }
+            }else if(DEPLOY_DEPEND == DEPLOY_DEPEND_RELEASE){
+                maven { url LOCAL_REPO_RELEASE_URL }
+            }else {
+                maven { url LOCAL_REPO_SNAPSHOT_URL }
+            }
+        }else if(DEPEND_TYPE == DEPEND_TYPE_LOCAL_ROUTE){
+            if(DEPLOY_DEPEND == DEPLOY_DEPEND_SNAPSHOT){
+                //xframework的snapshotsmaven仓库地址
+                maven {url MAVEN_REPO_SNAPSHOT_URL}
+            }else if(DEPLOY_DEPEND == DEPLOY_DEPEND_RELEASE){
+                //xframework的releasemaven仓库地址
+                maven { url MAVEN_REPO_RELEASE_URL }
+            }else {
+                //xframework的snapshotsmaven仓库地址
+                maven {url MAVEN_REPO_SNAPSHOT_URL}
+            }
+        }
+
+        //备份的maven仓库地址，局域网内所有的三方包加载或更新都是它代理，其他计算机不必需要接入互联网
+        maven { url MAVEN_PEPO_CENTER_URL }
         google()
         jcenter()
-        maven {url MAVEN_REPO_SNAPSHOT_URL}
-        maven { url MAVEN_REPO_RELEASE_URL }
-        maven { url MAVEN_PEPO_CENTER_URL }
     }
 
+
     project.ext{
-        compileSDKVersion = 30
-        minSDKVersion = 14
-        targetSDKVersion = 30
-        versionSDKCode = 11
-        versionSDKName = "0.0.11-SNAPSHOT"
+        compileSDKVersion = Integer.parseInt(COMPILE_SDK_VERSION)
+        buildToolsVersion = BUILD_TOOLS_VERSION
+        minSDKVersion = Integer.parseInt(MIN_SDK_VERSION)
+        targetSDKVersion = Integer.parseInt(TARGET_SDK_VERSION)
+        versionSDKCode = Integer.parseInt(VERSION_SDK_CODE)
+        versionSDKName = VERSION_SDK_NAME
+        dependType = DEPEND_TYPE
+        deployDepend = DEPLOY_DEPEND
     }
 }
 

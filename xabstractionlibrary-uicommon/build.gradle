@@ -2,9 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.ext.compileSDKVersion
-
-
-
+    buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
         minSdkVersion project.ext.minSDKVersion
         targetSdkVersion project.ext.targetSDKVersion
@@ -31,18 +29,26 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-//    implementation 'com.android.support:appcompat-v7:30.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
-//    api 'cn.appsdream.nestrefresh:refreshLayout:0.2'
-//    api project(path: ':xabstractionlibrary-network')
-//    api project(path: ':xabstractionlibrary-parse')
-    //noinspection GradleCompatible
-//    api 'com.android.support:recyclerview-v7:30.1.1'
-    api 'com.xframework:xabstractionlibrary-network:0.0.10-SNAPSHOT'
-    api 'com.xframework:xabstractionlibrary-parse:0.0.10-SNAPSHOT'
+    if (project.ext.dependType == DEPEND_TYPE_LOCAL_NONE){
+        api project(path: ':xabstractionlibrary-network')
+        api project(path: ':xabstractionlibrary-parse')
+    }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_REPO){
+        print(DEPEND_TYPE_LOCAL_REPO)
+        def parseUrl = 'com.xframework:xabstractionlibrary-parse:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api parseUrl
+        def networkUrl = 'com.xframework:xabstractionlibrary-network:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api networkUrl
+    }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_ROUTE){
+        print(DEPEND_TYPE_LOCAL_ROUTE)
+        def parseUrl = 'com.xframework:xabstractionlibrary-parse:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api parseUrl
+        def networkUrl = 'com.xframework:xabstractionlibrary-network:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api networkUrl
+    }
 }
 
 apply from: 'xabstractionlibrary-uicommon-release.gradle'

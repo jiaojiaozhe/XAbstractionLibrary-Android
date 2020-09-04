@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.xframework</groupId>
+  <artifactId>xabstractionlibrary-parse</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.15-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20200904022123</lastUpdated>
+  </versioning>
+</metadata>

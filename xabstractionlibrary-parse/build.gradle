@@ -2,9 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.ext.compileSDKVersion
-
-
-
+    buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
         minSdkVersion project.ext.minSDKVersion
         targetSdkVersion project.ext.targetSDKVersion
@@ -30,14 +28,21 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-//    implementation 'com.android.support:appcompat-v7:30.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
-//    api project(path: ':xabstractionlibrary-base')
-    api 'com.xframework:xabstractionlibrary-base:0.0.10-SNAPSHOT'
-//    api 'com.alibaba:fastjson:1.2.47'
+    if (project.ext.dependType == DEPEND_TYPE_LOCAL_NONE){
+        api project(path: ':xabstractionlibrary-base')
+    }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_REPO){
+        print(DEPEND_TYPE_LOCAL_REPO)
+        def baseUrl = 'com.xframework:xabstractionlibrary-base:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api baseUrl
+    }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_ROUTE){
+        print(DEPEND_TYPE_LOCAL_ROUTE)
+        def baseUrl = 'com.xframework:xabstractionlibrary-base:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api baseUrl
+    }
 }
 
 apply from: 'xabstractionlibrary-parse-release.gradle'

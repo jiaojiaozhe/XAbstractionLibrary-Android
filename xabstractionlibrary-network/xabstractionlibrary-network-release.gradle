@@ -3,13 +3,30 @@ uploadArchives{
     configuration = configurations.archives
     repositories {
         mavenDeployer{
-            //配置发布到的仓库地址
-            snapshotRepository(url: MAVEN_REPO_SNAPSHOT_URL) {
-                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+            if (project.ext.dependType == DEPEND_TYPE_LOCAL_NONE){
+                print("当前处于本地开发模式,并不存在部署包的问题，若需要请前往全局工程gradle.progerties中设置DEPEND_TYPE")
+            }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_REPO){
+                print(DEPEND_TYPE_LOCAL_REPO);
+                if(project.ext.deployDepend == DEPLOY_DEPEND_SNAPSHOT){
+                    snapshotRepository(url: uri(LOCAL_REPO_SNAPSHOT_URL)) {
+                    }
+                }else if(project.ext.deployDepend == DEPLOY_DEPEND_RELEASE){
+                    repository(url: uri(LOCAL_REPO_RELEASE_URL)) {
+                    }
+                }
+            }else if(project.ext.dependType == DEPEND_TYPE_LOCAL_ROUTE){
+                print(DEPEND_TYPE_LOCAL_ROUTE);
+                if(project.ext.deployDepend == DEPLOY_DEPEND_SNAPSHOT){
+                    snapshotRepository(url: MAVEN_REPO_SNAPSHOT_URL) {
+                        authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                    }
+                }else if(project.ext.deployDepend == DEPLOY_DEPEND_RELEASE){
+                    repository(url: MAVEN_REPO_RELEASE_URL) {
+                        authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+                    }
+                }
             }
-            repository(url: MAVEN_REPO_RELEASE_URL) {
-                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
-            }
+
             //项目属性
             pom.project {
                 //GROUPID+artifactId在maven中确定唯一位置
@@ -21,7 +38,7 @@ uploadArchives{
 
                 //版本号由各个子项目进行独立配置
                 //后缀加-SNAPSHOT则为快照版本，去掉为release版本，会发布至不同仓库
-                version android.defaultConfig.versionName
+                version android.defaultConfig.versionName + "-" + project.ext.deployDepend
                 //artifactId使用项目名
                 artifactId 'xabstractionlibrary-network'
             }

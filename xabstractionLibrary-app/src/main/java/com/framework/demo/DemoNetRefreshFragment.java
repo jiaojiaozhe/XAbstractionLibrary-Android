@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.framework.model.OpertationsModel;
 import com.framework.ui.BaseNetRefreshFragment;
 import com.xframework_base.xutils.XAppInfo;
-import com.zhht.xabstractionlibrary.R;
+import com.personal.xabstractionlibrary.R;
 
 import java.util.HashMap;
 import java.util.Map;

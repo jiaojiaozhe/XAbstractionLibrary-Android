@@ -16,7 +16,7 @@ import com.xframework_uicommon.xview.xerrorview.XIBaseErrorViewDelegate;
 import com.xframework_uicommon.xview.xloadingview.XIBaseLoadingViewDelegate;
 import com.xframework_uicommon.xview.xnodataview.XIBaseNoDataViewDelegate;
 import com.xframework_uicommon.xview.xnonetview.XIBaseNoNetViewDelegate;
-import com.zhht.xabstractionlibrary.R;
+import com.personal.xabstractionlibrary.R;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

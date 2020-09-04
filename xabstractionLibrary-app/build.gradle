@@ -2,13 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion project.ext.compileSDKVersion
-
+    buildToolsVersion project.ext.buildToolsVersion
     defaultConfig {
-        applicationId "com.zhht.xabstractionlibrary"
+        applicationId "com.personal.xabstractionlibrary"
         minSdkVersion project.ext.minSDKVersion
         targetSdkVersion project.ext.targetSDKVersion
-//        versionCode project.ext.versionSDKCode
-//        versionName project.ext.versionSDKName
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -27,18 +25,24 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
-//    implementation project(':xabstractionlibrary-base')
-//    implementation project(':xabstractionlibrary-network')
-//    implementation project(':xabstractionlibrary-parse')
-//    implementation project(':xabstractionlibrary-uicommon')
-
-    api 'com.xframework:xabstractionlibrary-uicommon:0.0.10-SNAPSHOT'
-
-
+    if (project.ext.dependType == DEPEND_TYPE_LOCAL_NONE){
+        print(DEPEND_TYPE_LOCAL_NONE)
+        implementation project(':xabstractionlibrary-base')
+        implementation project(':xabstractionlibrary-network')
+        implementation project(':xabstractionlibrary-parse')
+        implementation project(':xabstractionlibrary-uicommon')
+    }else if (project.ext.dependType == DEPEND_TYPE_LOCAL_REPO){
+        print(DEPEND_TYPE_LOCAL_REPO)
+        def uicommonUrl = 'com.xframework:xabstractionlibrary-uicommon:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api uicommonUrl
+    }else if (project.ext.dependType == DEPEND_TYPE_LOCAL_ROUTE){
+        print(DEPEND_TYPE_LOCAL_ROUTE)
+        def uicommonUrl = 'com.xframework:xabstractionlibrary-uicommon:' + project.ext.versionSDKName + "-" + project.ext.deployDepend
+        api uicommonUrl
+    }
 }

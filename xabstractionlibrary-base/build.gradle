@@ -1,10 +1,8 @@
-apply from: 'build_config.gradle'
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion project.ext.compileSDKVersion
-
-
+    buildToolsVersion project.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion project.ext.minSDKVersion
@@ -13,7 +11,6 @@ android {
         versionName project.ext.versionSDKName
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-
     }
 
     buildTypes {
@@ -26,7 +23,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
 }
 
 dependencies {
@@ -40,9 +36,9 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.0.0'
     api 'androidx.recyclerview:recyclerview:1.0.0'
 
-    api 'com.alibaba:fastjson:1.2.47'
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    api 'com.alibaba:fastjson:1.2.73'
+    api 'com.squareup.okhttp3:okhttp:4.7.2'
+    api 'com.squareup.okhttp3:logging-interceptor:4.7.2'
     api 'cn.appsdream.nestrefresh:refreshLayout:0.2'
 }
 
